@@ -20,7 +20,10 @@ const config = {
       template: "./src/index.html",
     }),
 
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
 
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
@@ -28,20 +31,27 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'html-loader',
+          },
+        ],
+      },
+      {
         test: /\.(js|jsx)$/i,
         loader: "babel-loader",
       },
       {
-        test: /\.s[ac]ss$/i,
-        use: ["css-loader", "sass-loader"],
+        test: /\.css$/i,
+        use: [
+          MiniCssExtractPlugin.loader, 'css-loader',
+        ],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: "asset",
       },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
 };

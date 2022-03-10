@@ -5,7 +5,7 @@ export default class GameController {
   }
 
   init() {
-    
+    this.gamePlay.drawUi('prairie');
   }
 
   onCellClick(index) {
